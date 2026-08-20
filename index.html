@@ -6,49 +6,39 @@
 
 <title>M Card AR</title>
 
-https://unpkg.com/@google/model-viewer/dist/model-viewer.min.jsscript>
-
 <style>
 *{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
 html,body{
-  width:100%;
-  height:100%;
-  overflow:hidden;
+    width:100%;
+    height:100%;
+    overflow:hidden;
 }
 
-/* Splash เต็มจอ */
+/* Splash Screen เต็มจอ */
 #splash{
-  position:fixed;
-  inset:0;
-  background:url('Splashscreen-Mcard.jpg') center center no-repeat;
-  background-size:cover;
-  z-index:9999;
+    width:100vw;
+    height:100vh;
+    background:url('Splashscreen-Mcard.jpg') center center no-repeat;
+    background-size:cover;
+    position:relative;
 }
 
-/* พื้นที่กดทับปุ่มในภาพ */
-#startAR{
-  position:absolute;
-  left:50%;
-  bottom:18%;
-  transform:translateX(-50%);
-  width:320px;
-  height:90px;
-  background:transparent;
-  border:none;
-  cursor:pointer;
-}
-
-/* ซ่อน model-viewer */
-model-viewer{
-  width:1px;
-  height:1px;
-  opacity:0;
-  position:absolute;
+/* พื้นที่กดตรงปุ่ม "เริ่มเล่น AR" */
+#startBtn{
+    position:absolute;
+    left:50%;
+    bottom:17%;
+    transform:translateX(-50%);
+    width:320px;
+    height:90px;
+    cursor:pointer;
+    background:transparent;
+    border:none;
 }
 </style>
 </head>
@@ -56,29 +46,16 @@ model-viewer{
 <body>
 
 <div id="splash">
-  <button id="startAR"></button>
+    <button id="startBtn"></button>
 </div>
 
-<model-viewer
-  id="model"
-  src="icon-Mcard-3D.glb"
-  ar
-  ar-modes="scene-viewer quick-look webxr"
-  camera-controls>
-</model-viewer>
-
 <script>
-document.getElementById('startAR').addEventListener('click', async () => {
+document.getElementById('startBtn').onclick = function () {
 
-  const model = document.getElementById('model');
+    // เปิดไฟล์ GLB โดยตรง
+    window.location.href = "icon-Mcard-3D.glb";
 
-  try {
-    await model.activateAR();
-  } catch (e) {
-    console.log(e);
-  }
-
-});
+};
 </script>
 
 </body>

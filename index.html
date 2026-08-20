@@ -1,64 +1,92 @@
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M CARD AR</title>
 
-<title>M CARD AR</title>
+    <script type="module"
+        src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
+    </script>
 
-<script type="module"
-src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
-</  margin:0;
-    width:100%;
-    height:100%;
-    overflow:hidden;
-}
+    <style>
+         padding: 0;
+            box-sizing: border-box;
+        }
 
-#splash{
-    position:fixed;
-    inset:0;
-    background:url('./Splashscreen-Mcard.jpg') center center no-repeat;
-    background-size:cover;
-}
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
 
-#startBtn{
-    position:absolute;
-    left:50%;
-    bottom:17%;
-    transform:translateX(-50%);
-    width:350px;
-    height:100px;
-    background:transparent;
-    border:none;
-    cursor:pointer;
-}
+        #splash {
+            position: fixed;
+            inset: 0;
+            background: url('Splashscreen-Mcard.jpg') center center no-repeat;
+            background-size: cover;
+            z-index: 9999;
+        }
 
-model-viewer{
-    width:1px;
-    height:1px;
-    opacity:0;
-}
-</style>
+        /* พื้นที่กดตรงปุ่ม */
+        #startAR {
+            position: absolute;
+            left: 50%;
+            bottom: 17%;
+            transform: translateX(-50%);
+            width: 340px;
+            height: 95px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+        }
+
+        model-viewer {
+            width: 1px;
+            height: 1px;
+            opacity: 0;
+            position: absolute;
+        }
+    </style>
 </head>
 
 <body>
 
-<div id="splash">
-    <button id="startBtn"></button>
-</div>
+    <!-- Splash -->
+    <div id="splash">
+        <button id="startAR"></button>
+    </div>
 
-<model-viewer
-    id="arModel"
-    src="./icon-Mcard-3D.glb"
-    ar
-    ar-modes="scene-viewer webxr quick-look"
-    camera-controls>
-</model-viewer>
+    <!-- AR Model -->
+    <model-viewer
+        id="arModel"
+        src="icon-Mcard-3D.glb"
+        ar
+        ar-modes="scene-viewer webxr quick-look"
+        camera-controls>
+    </model-viewer>
 
-<script>
-document.getElementById('startBtn').addEventListener('click', () => {
+    <script>
+        document.getElementById('startAR').addEventListener('click', async () => {
 
-    const viewer = document.getElementById('arModel');
+            const model = document.getElementById('arModel');
 
-    if (viewer.activateAR)dy>
+            try {
+                await model.activateAR();
+            } catch (error) {
+
+                alert(
+                    'ไม่สามารถเปิด AR ได้\n\nกรุณาเปิดจากมือถือ Android/iPhone ที่รองรับ AR'
+                );
+
+                console.error(error);
+            }
+
+        });
+    </script>
+
+</body>
+
 </html>

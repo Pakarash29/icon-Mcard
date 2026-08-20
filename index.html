@@ -1,31 +1,85 @@
-html, body { 
-  width: 100%; 
-  height: 100%; 
-  min-height: 100dvh; /* ปรับให้เต็มจอตาม Viewport จริงของมือถือ */
-  margin: 0;
-  padding: 0;
-  overflow: hidden; 
-  font-family: 'Kanit', 'Prompt', sans-serif; 
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>M Card AR</title>
+
+https://unpkg.com/@google/model-viewer/dist/model-viewer.min.jsscript>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
 }
 
-#splash {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  height: 100dvh; /* บังคับครอบคลุมความสูงจริงของหน้าจอมือถือ */
-  z-index: 9999;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  text-align: center;
-  color: #fff;
-  background:
-    linear-gradient(135deg, transparent 49.5%, rgba(255,255,255,0.15) 50%, transparent 50.5%),
-    radial-gradient(circle at 15% 20%, #4c2fd6 0%, transparent 45%),
-    radial-gradient(circle at 85% 15%, #6a0f6b 0%, transparent 50%),
-    linear-gradient(200deg, #d8bfe8 0%, #b23fae 35%, #c4123f 65%, #e8134b 100%);
-  /* เอา position: relative; บรรทัดล่างสุดออก */
+html,body{
+  width:100%;
+  height:100%;
+  overflow:hidden;
 }
+
+/* Splash เต็มจอ */
+#splash{
+  position:fixed;
+  inset:0;
+  background:url('Splashscreen-Mcard.jpg') center center no-repeat;
+  background-size:cover;
+  z-index:9999;
+}
+
+/* พื้นที่กดทับปุ่มในภาพ */
+#startAR{
+  position:absolute;
+  left:50%;
+  bottom:18%;
+  transform:translateX(-50%);
+  width:320px;
+  height:90px;
+  background:transparent;
+  border:none;
+  cursor:pointer;
+}
+
+/* ซ่อน model-viewer */
+model-viewer{
+  width:1px;
+  height:1px;
+  opacity:0;
+  position:absolute;
+}
+</style>
+</head>
+
+<body>
+
+<div id="splash">
+  <button id="startAR"></button>
+</div>
+
+<model-viewer
+  id="model"
+  src="icon-Mcard-3D.glb"
+  ar
+  ar-modes="scene-viewer quick-look webxr"
+  camera-controls>
+</model-viewer>
+
+<script>
+document.getElementById('startAR').addEventListener('click', async () => {
+
+  const model = document.getElementById('model');
+
+  try {
+    await model.activateAR();
+  } catch (e) {
+    console.log(e);
+  }
+
+});
+</script>
+
+</body>
+</html>
